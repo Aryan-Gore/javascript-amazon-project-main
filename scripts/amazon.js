@@ -1,5 +1,6 @@
-import {cart} from '../data/cart.js'
+import {UpdateCartQuantity,addToCart} from '../data/cart.js'
 import {products} from '../data/products.js'
+
 // making html for all datset 
 let productsHTML = ``;
 products.forEach((product) => {
@@ -67,32 +68,10 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
         const productId =  button.dataset.productId; 
 
         // check for if button alreaady exist
-        let matchingItem;
-
-        cart.forEach((item) => {
-            if(productId === item.productId){
-                matchingItem = item;
-            }
-        })
-        if(matchingItem){
-            matchingItem.quantity += 1;
-        }
-        else{
-        cart.push({
-            productId : productId,
-            quantity : 1
-        })
-        }
+        addToCart(productId);
         // total No. of items present in cart
-            let cartQuantity = 0;
-
-            cart.forEach((item) => {
-
-                cartQuantity += item.quantity;
-
-            });
-        //updating on pg
-    document.querySelector('.js-cart-quantity').innerHTML =  cartQuantity;
+        UpdateCartQuantity();
+       
             
         });
     });
