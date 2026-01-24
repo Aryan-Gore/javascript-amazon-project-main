@@ -1,5 +1,4 @@
-
- 
+// making html for all datset 
 let productsHTML = ``;
 products.forEach((product) => {
 
@@ -56,32 +55,44 @@ products.forEach((product) => {
     `;
 
 })
-
+        // updating the html on pg
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-document.querySelectorAll('.js-add-to-cart')
-  .forEach((button) => {
-    button.addEventListener('click', () => {
-     const productId =  button.dataset.productId; 
+        // button add to cart
+    document.querySelectorAll('.js-add-to-cart')
+    .forEach((button) => {
+        button.addEventListener('click', () => {
+        const productId =  button.dataset.productId; 
 
-     let matchingItem;
+        // check for if button alreaady exist
+        let matchingItem;
 
-     cart.forEach((item) => {
-        if(productId === item.productId){
-            matchingItem = item;
+        cart.forEach((item) => {
+            if(productId === item.productId){
+                matchingItem = item;
+            }
+        })
+        if(matchingItem){
+            matchingItem.quantity += 1;
         }
-     })
-     if(matchingItem){
-        matchingItem.quantity += 1;
-     }
-     else{
-     cart.push({
-        productId : productId,
-        quantity : 1
-     })
-    }
+        else{
+        cart.push({
+            productId : productId,
+            quantity : 1
+        })
+        }
+        // total No. of items present in cart
+            let cartQuantity = 0;
 
+            cart.forEach((item) => {
+
+                cartQuantity += item.quantity;
+
+            });
+        //updating on pg
+    document.querySelector('.js-cart-quantity').innerHTML =  cartQuantity;
+            
+        });
     });
-  });
 
-  console.log(cart)
+
