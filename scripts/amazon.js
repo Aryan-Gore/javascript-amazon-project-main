@@ -1,3 +1,4 @@
+import {cart} from '../data/cart.js'
 // making html for all datset 
 let productsHTML = ``;
 products.forEach((product) => {
