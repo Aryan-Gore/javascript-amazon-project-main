@@ -1,12 +1,14 @@
   export function getproduct(productId){
-   let matchingItem;
-  
-          cart.forEach((item) => {
-              if(productId === item.productId){
-                  matchingItem = item;
-              }
-          })
-          return matchingItem;
+   let matchingProduct;
+
+        products.forEach((product)=>{
+
+            if(product.id === productId){
+                matchingProduct = product; 
+            }
+    
+        })
+        return matchingProduct;
  }
  export const products = [
   {

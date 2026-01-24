@@ -135,6 +135,7 @@
                 const {productId,deliveryOptionId} = element.dataset;
                  updateDeliverOption(productId,deliveryOptionId);
                  renderOrderSummary();
+            
             })
         })
     }
