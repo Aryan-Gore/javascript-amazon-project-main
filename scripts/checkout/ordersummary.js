@@ -2,7 +2,7 @@
     import {products,getproduct} from '../../data/products.js'
     import {deliveryOptions} from '../../data/deliveryOption.js'
     import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-
+    import {renderpaymentsummary} from './paymentsummary.js'
 
   export  function renderOrderSummary(){
     let cartSummaryHtml = '';
@@ -122,6 +122,7 @@
             link.addEventListener('click',()=>{
                 const productId = link.dataset.productId;
                 removefromcart(productId);
+                renderpaymentsummary();
 
                 const container = document.querySelector(`.js-cart-item-container-${productId}`) ;
 
@@ -135,6 +136,7 @@
                 const {productId,deliveryOptionId} = element.dataset;
                  updateDeliverOption(productId,deliveryOptionId);
                  renderOrderSummary();
+                 renderpaymentsummary();
             
             })
         })

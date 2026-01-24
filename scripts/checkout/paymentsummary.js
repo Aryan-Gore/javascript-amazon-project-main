@@ -16,7 +16,8 @@ export function renderpaymentsummary(){
 
  })
   const totalbeforetax =  shippingprice+productprice;
-  const tax = totalbeforetax*0.1;
+  const tax = Number((totalbeforetax * 0.1).toFixed(2));
+
   const total = totalbeforetax+ tax;
 
   const paymentsummaryhtml =
