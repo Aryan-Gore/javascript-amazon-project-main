@@ -57,8 +57,17 @@
                         ${cartItem.quantity}</span>
                     </span>
                     <span class="update-quantity-link link-primary">
+
                         Update
                     </span>
+
+                    <div class="quantity-controls" style="display: none;">
+                      <button class="js-increase" data-product-id="${matchingProduct.id}">+</button>
+                        <span class="quantity-label js-qty">${cartItem.quantity}</span>
+
+                        <button class="js-decrease" data-product-id="${matchingProduct.id}">−</button>
+                    </div>
+
                     <span class="delete-quantity-link link-primary
                     js-delete-link" data-product-id="${matchingProduct.id}">
                         Delete
@@ -77,9 +86,9 @@
 
         `;
 
-        document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
         
     });
+    document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
     function deliveryoptionHTML(matchingProduct,cartItem){
 
         let html = ``;
@@ -140,6 +149,19 @@
             
             })
         })
+
+        document.querySelectorAll('.update-quantity-link')
+  
+        .forEach(link => {
+    link.addEventListener('click', () => {
+      const controls = link.nextElementSibling;
+      controls.style.display =
+        controls.style.display === 'none' ? 'inline-flex' : 'none';
+    });
+  });
+
+
+
     }
 
    
