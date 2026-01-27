@@ -72,3 +72,14 @@ export function updateDeliverOption(productId,deliveryOptionId){
         matchingItem.deliveryOptionId = deliveryOptionId;
         saveToStorage();
     }
+
+// --------------------update-quntity-with-updatebtn---------------
+export function updateQuantity(productId, newQuantity) {
+  cart.forEach(cartItem => {
+    if (cartItem.productId === productId) {
+      cartItem.quantity = newQuantity;
+    }
+  });
+
+  saveToStorage(); // if you already use localStorage
+}

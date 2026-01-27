@@ -1,4 +1,4 @@
-    import {cart,removefromcart,updateDeliverOption} from '../../data/cart.js'
+    import {cart,removefromcart,updateDeliverOption,updateQuantity } from '../../data/cart.js'
     import {products,getproduct} from '../../data/products.js'
     import {deliveryOptions} from '../../data/deliveryOption.js'
     import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
@@ -57,7 +57,6 @@
                         ${cartItem.quantity}</span>
                     </span>
                     <span class="update-quantity-link link-primary">
-
                         Update
                     </span>
 
@@ -83,12 +82,13 @@
                 </div>
                 </div>
             </div>
-
-        `;
-
-        
+             `;  
     });
-    document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
+
+   // Make sure your cart HTML is already rendered
+document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
+
+
     function deliveryoptionHTML(matchingProduct,cartItem){
 
         let html = ``;
@@ -159,9 +159,32 @@
         controls.style.display === 'none' ? 'inline-flex' : 'none';
     });
   });
+    
+}
 
 
+// 2️⃣ Attach listener **once outside** renderOrderSummary
+const orderSummary = document.querySelector('.js-order-summary');
 
-    }
+orderSummary.addEventListener('click', (e) => {
+
+  const productId = e.target.dataset.productId;
+  const cartItem = cart.find(item => item.productId === productId);
+
+  if (!cartItem) return; // safety check
+
+  // INCREASE
+  if (e.target.classList.contains('js-increase')) {
+    updateQuantity(productId, cartItem.quantity + 1);
+    renderOrderSummary();
+  }
+
+  // DECREASE
+  if (e.target.classList.contains('js-decrease') && cartItem.quantity > 1) {
+    updateQuantity(productId, cartItem.quantity - 1);
+    renderOrderSummary();
+  }
+});
+    
 
    
