@@ -29,18 +29,18 @@ products.forEach((product) => {
           </div>
 
           <div class="product-quantity-container">
-            <select>
-              <option selected value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
+              <select class="js-quantity-selector" data-product-id="${product.id}">
+    <option selected value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select>
           </div>
 
           <div class="product-spacer"></div>
@@ -60,20 +60,26 @@ products.forEach((product) => {
 })
         // updating the html on pg
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+UpdateCartQuantity();
 
         // button add to cart
-    document.querySelectorAll('.js-add-to-cart')
-    .forEach((button) => {
-        button.addEventListener('click', () => {
-        const productId =  button.dataset.productId; 
+document.querySelectorAll('.js-add-to-cart')
+.forEach((button) => {
+  button.addEventListener('click', () => {
+    const productId = button.dataset.productId;
 
-        // check for if button alreaady exist
-        addToCart(productId);
-        // total No. of items present in cart
-        UpdateCartQuantity();
-       
-            
-        });
-    });
+    // find the quantity dropdown of THIS product
+    const quantitySelector = document.querySelector(
+      `.js-quantity-selector[data-product-id="${productId}"]`
+    );
 
+    const quantity = Number(quantitySelector.value);
+
+    // add multiple items
+    addToCart(productId, quantity);
+
+    // update cart count
+    UpdateCartQuantity();
+  });
+});
 
